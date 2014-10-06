@@ -1,0 +1,278 @@
+%Input the preamble from the tex_tools directory. 
+\input{../bi103_tex_tools/bi103_preamble.tex}
+
+\begin{document}
+\section{Homework 1}
+\noindent {\small This homework is the communal work of Emily Blythe,
+Griffin Chure, and Kyu Hyun Lee. While all answers were written collectively,
+answers authored primarily by one person are denoted by their initials (EC,
+GC, or KL). The code used to generate the analysis and figures shown can be
+found in a python script titled \texttt{KEGscript\_homework1.py}.}
+
+\subsection{Your goals (20pts)}
+\begin{itemize}
+\item[\textbf{GC})] In the era of 'big data biology' where high-throughput
+	methods generate data at dizzying rates, it is my sense that a
+	biologist who knows only biology is severely limited in how they can
+	interpret the deluge of information. Having a solid and practical
+	understanding of the mathematics of scientific logic not only aids in
+	the processing of data but can provide valuable insight into how
+	experiments should be designed. My goal for this course is to
+	learn the mathematical tenets of data analysis as well as the
+	computational tools to put said tenets to use. While learning the
+	language is important, I would rather walk away from this class
+	knowing how to interpret data and design experiments than how
+	to use Python to do data analysis. Specifically, I would like to learn
+	how extract quantitative data from seemingly qualitative images (such
+	as fluorescent images of bacteria). I would also like to learn how to
+	write scripts that can track particle movement over both long and
+	short time scales. 
+
+\item[\textbf{EB})] As I have begun to collect data in my graduate research, I
+	have realized that (1) I am likely using inefficient methods to handle
+the data, making the analysis more confusing and time-consuming, and (2)
+sometimes I have doubts as to how to best handle my data. Therefore, I have
+two related goals for this course. First, I am hoping to learn better methods
+for analyzing my data, both to save me time and to make the process as
+streamlined and simple as possible. I have no prior experience using python or
+any other language, so learning how to code is a big goal for me this
+semester. Even if a python-based method is not the most applicable tool for my
+specific data in research, learning to code will still be a valuable process.
+Second, my goal for the course is to learn how to properly handle the analysis
+of biological data-- which mathematical tools are available and when to apply
+those tools to data. My background in mathematics that are applicable to
+biological situations is a bit shaky, so I want to address this deficiency. It
+seems as though this course will emphasize discussion about the best way to
+analyze data with no "correct" answer, and I think that participating in these
+discussions will further my understanding of appropriate data analysis.
+	
+\item[\textbf{KL})] My goal in this class is to be exposed to some ideas about how to process
+data. There is no one ``right'' way to analyze data, but for many common
+problems there are conceptual tools that have been developed and are widely
+accepted as appropriate by the scientific community. In this course I hope to
+be introduced to these tools and get a feel for how to use them effectively
+through hands-on interactions with real data sets. 
+\end{itemize}
+\newpage
+\subsection{Plotting functions with Python (30 pts)}
+\begin{itemize}
+	\item[a)]\textbf{Exponential Decay with Background - (GC)} From a
+		mathematical standpoint, it is obvious that plotting the
+		exponential decay function with background noise on a
+		logarithmic range will provide the most information. One of
+		the most important parameters describing the shape of the
+		decay is the half-life, in this case denoted $\lambda$.
+		Plotting the logarithm of this function with respect to $x$
+		makes the half-life a parameter that can be easily measured.
+		Figure 1 shows the effect of plotting the function on
+		different scales.	
+		\begin{center}
+			\includegraphics[width=0.8\textwidth]{../figs/KEG_exp_multiplot.pdf}
+		\end{center}
+		{\small \textbf{Figure 1.} The exponential decay function with
+		background signal plotted on various scalings. It is
+		obvious that plotting on the $\log y$ scaling produces the
+		most useful result. This file is saved as
+		\texttt{KEG\_exp\_multiplot.pdf}.}\\
+
+		Varying the parameters $a$, $b$, and $\lambda$ reveals what
+		parameters are important in determining the shape of the
+		function (Figure 2). As expected, the background signal $a$
+		merely controls the linearity of the exponential decay on the
+		$\log(y)$ scale. A consequence of
+		taking the log of the whole function is that that the
+		background signal, $a$, becomes logarithmic as well.  In the
+		limit where $x \rightarrow \infty$, the value of $\log(a)$
+		will become more apparent as the exponential factor shrinks,
+		changing the shape of the curve.  As $a$ gets larger, it
+		begins to drown out the effects of the exponential at smaller
+		$x$ values. Varying $b$ merely changes the starting point of
+		the decay. Varying $\lambda$ carries the largest influence on
+		the decay. This term, the half-life, determines the rate at
+		which the exponential falls. With large values of $\lambda$,
+		the decay drastically slows whereas smaller values of
+		$\lambda$ greatly increase the rate.
+
+		\begin{center}
+			\includegraphics[width=0.8\textwidth]{../figs/KEG_exp_var.pdf}
+		\end{center}
+		{\small \textbf{Figure 2.} Varying the parameters $a$, $b$,
+		and $\lambda$ of the exponential decay function and background
+		signal. It can easily be seen that $\lambda$ defines the rate
+		of decay, $b$ defines the starting point of the decay, and $a$
+		controls how long a decay is measurable in the presence of
+	noise.}
+		
+	\newpage	
+
+	\item[b)]\textbf{Cauchy Distribution - (EB)} There is no real reason
+		to plot the Cauchy distribution on any manner of logarithmic
+		scaling as there are no exponentiated variables. This can
+		clearly be seen in Figure 3. Plotting in this way allows
+		us to easily visualize the important parameters $\alpha$ and
+		$\beta$ -- creating a smooth curve -- whereas these parameters
+		are not obvious when plotted on the other scales.  
+	
+		\begin{center}
+	
+		\includegraphics[width=0.8\textwidth]{../figs/KEG_cauchy_multiplot.pdf}
+	\end{center}	
+	{\small \textbf{Figure 3.} Plotting the Cauchy distribution on
+	multiple scales. Plotting on a linear scale conveys the most
+	information on the effects of $\alpha$ and $\beta$. This figure is
+	saved with the filename \texttt{KEG\_cauchy\_multiplot.pdf}.}\\
+
+
+As shown in Figure 4, varying the
+parameter $\beta$ causes a change in the shape of the curve, with a smaller
+$\beta$ 
+causing a more narrow function and a larger $\beta$ causing a wider function
+($\beta$ represents the half width at half maximal height in the Cauchy
+distribution). Changing the parameter $\alpha$ only serves to translate the
+function along the $x$-axis, as shown in the figure. This result stems from the
+fact that in the equation $\alpha$ only affects the value of $x$ (this changes the
+center of the distribution).
+
+\begin{center}
+	\includegraphics[width=0.65\textwidth]{../figs/KEG_cauchy_var.pdf}
+\end{center}
+	{\small \textbf{Figure 4.} Variations of $\alpha$ and $\beta$ and their respective effects on
+	the curve shape. $\beta$ defines with width of the peak and $\alpha$
+	defines the position of the peak along the $x$ axis. This figure is
+	saved with the filename \texttt{KEG\_cauchy\_var.pdf}.}
+	
+\newpage
+
+\item[c)]\textbf{Hill Function - (KL)} As demonstrated in Figure 5, the best way to visualize the Hill
+function is to plot the function on the log $x$ scale. Plotting in this way
+allows us to easily visualize the important parameters $k$ (value of $x$ when
+$y$ =0.5; interpretation differs depending on data type)  and $\alpha$ (shows how
+sensitive $y$ is to change in $x$; again interpretation varies). This scale allows
+an easy readout of both of these constants as it explicitly shows the point at
+which $y$ = 0.5 and the function becomes more sharply tuned as $\alpha$ changes. It
+is preferable to the log log plot because it preserves the idea that $k$ occurs
+when $y$ = 0.5 rather than morphing it to the intercept. It is better than the
+linear plot because plotting $x$ on log scale allows easy visualization over
+many orders of magnitude. It is better than the $\log(y)$ plot because
+plotting $y$ on log scale makes visualization of $y$ = 0.5 difficult.
+
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{../figs/KEG_hill_multiplot.pdf}
+\end{center}
+	{\small \textbf{Figure 5.} Plotting the Hill function on multiple scales. Plotting on a log $x$
+	scale displays the values and physical meaning of the $x$ and $k$
+	parameters in an obvious way. This figure is saved as
+	\texttt{KEG\_hill\_multiplot.pdf}.}
+
+\begin{center}
+	\includegraphics[width=0.65\textwidth]{../figs/KEG_hill_var.pdf}
+\end{center}
+{\small \textbf{Figure 6.} The effect of varying $k$ and $\alpha$ on the Hill
+	function. It becomes obvious that $k$ functions as a scaling factor of
+$x$, determining its placement along the $x$ axis. This file is saved as
+\texttt{KEG\_hill\_var.pdf}.}
+
+
+
+\end{itemize}
+
+\subsection{Microtubule catastrophes I (50 pts) - EB, GC, KL}
+\begin{itemize}
+	\item[a)] Please see code in \texttt{KEGscript\_homework\_1.py}
+		beginning at line 
+		\texttt{470} to see the loading and renaming of tables in the
+		\texttt{.csv} files using \texttt{pandas}.
+	\item[b)] In our analysis, we had several options for displaying 
+		the data regarding normalization, number of bins, and data
+		display. We generated a histogram in which the data for
+		the labeled and unlabeled tublin were normalized, allowing us
+		to plot the frequency of microtubule collapse as a function of
+		time (Figure 7).
+
+		\begin{center}
+			\includegraphics[width=0.8\textwidth]{../figs/KEG_catastrophe_histogram.pdf}
+		\end{center}
+			{\small \textbf{Figure 7.} Histogram of microtubule
+			catastrophe events binned along time to
+			catastrophe. Green and gray bars represent frequency
+			of catastrophe event for GFP labeled and unlabeled
+			tubulin respectively. Data sets were normalized to
+			produce a measure of catastrophe frequency as opposed to a
+			measure of catastrophe observations. It is evident from the plot that
+			labeling the tubulin does not effect the dynamics of
+		microtubule catastrophe. This file is saved as
+		\texttt{KEG\_catastrophe\_histogram.pdf}.}\\
+
+
+		In order to better compare the labeled and unlabeled tubulin,
+		we chose to plot the two data sets on the same histogram. This
+		also meant that we needed to normalize the data in some way.
+		The ‘normed’ parameter normalizes the data set such that the
+		area under the bars is equal to one, but we found this
+		presentation of the data confusing (the $y$-axis was unclear).
+		Therefore, we instead weighted each data point proportionally
+		to the size of the data set so that the sum of the heights of
+		the bars is equal to one. To decide how many bins to use,
+		we applied the square root rule in which bin number is
+		determined by $\sqrt{n}$ where $n$ is the number of data
+		points. However, the two data sets
+		had different sizes. We chose to use the binning size of the
+		larger data set because our data is very dense around 250s. Using a
+		larger number of bins (narrower bins) gives better resolution
+		and precision in a dense area. For the style of the histogram,
+		we used a bar histogram instead of a step histogram because
+		the two data sets have great overlap, making a step histogram
+		difficult to interpret.
+
+	\item[c)] When we switched to a cumulative histogram from the histogram in part b, we
+found a bar histogram difficult to interpret and visually displeasing. To solve these issues, we chose to
+represent the data as points instead of bars. However, with only points we
+found the plot to be slightly misleading (i.e. it looked like a scatter plot
+rather than a histogram), so we added the bars back in with light colors to
+emphasize that the plot is a histogram and not just a plot of raw data
+points.
+
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{../figs/KEG_catastrophe_cumulative_histogram.pdf}
+\end{center}
+	{\small \textbf{Figure 8.} Cumulative histogram of microtubule
+	catastrophe with respect to time. Circles indicate the number of
+	catastrophe events up that the indicated time of observation. The bars
+	represent the same information but in the form of bars. Green and gray
+	represent GFP labeled and unlabeled tubulin respectively. It is
+	obvious that labeling of the tubulin does not affect the dynamics of
+microtubule catastrophe. This file is saved as
+\texttt{KEG\_catastrophe\_cumulative\_histogram.pdf}.}
+
+\newpage
+	\item[d)] We plotted the cumulative histogram with no binning (Fig.
+		9). To plot the data without binning, we first sorted the data
+		(and removed the NaN data). We then used the
+		\texttt{np.arange} function to create arrays of evenly spaced
+		points with the same size as our data sets, scaled by the size
+		of the data sets. By plotting the sorted data vs. the array,
+		we were able to show the cumulative distribution as a function
+		of time. This plot shows that there is no skewing of the data
+		by our choice of binning in the previous two plots. 
+
+		\begin{center}
+			\includegraphics[width=0.8\textwidth]{../figs/KEG_cumulative_dist.pdf}
+		\end{center}
+			{\small \textbf{Figure 9.} Cumulative histogram with
+			no binning of
+			microtubule catastrophe with respect to time. Green
+			and gray circles represent total number of catastrophe
+			events of GFP labeled and unlabeled tubulin. As with
+			the previous two figures, it is obvious that labeling
+		does not alter the behavior of the microtubule instability.
+		This file is saved as \texttt{KEG\_cumulative\_dist.pdf}.}
+
+
+ 
+\end{itemize}
+
+
+
+
+\end{document}
