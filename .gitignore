@@ -1,0 +1,14 @@
+# A .gitignore file for the KEGger repository.
+
+*.pdf
+*.swp
+*.log
+*.aux
+*.tif
+*.tiff
+*.jpg
+*.eps
+*.svg
+*.pyc
+*.bbl
+
