@@ -1,0 +1,81 @@
+\documentclass[10pt, letterpaper]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\pagestyle{fancy}
+\lhead{\vspace*{0.25in} \sc BE/Bi 103}
+\rhead{ Emily Blythe, Griffin Chure, Kyu Hyun Lee - \today}
+\renewcommand{\headrulewidth}{0.4pt}
+\begin{document}
+	\section{Extra Credit part b}
+\textrm{We begin by rearranging $y=ax+b$ to write $\alpha$ and $\beta$ in terms of $a$ and $b$}
+\begin{align*}
+y = ax + b\\
+ax = y - b\\
+x = \frac{1}{a}y - \frac{b}{a} = \alpha x + \beta\\
+\therefore \alpha = \frac{1}{a}, \beta = -\frac{b}{a}
+\end{align*}
+\textrm{Now let's  compute the Jacobian (no motivation other than to get it out of the way for now)}
+\begin{align*}
+\frac{\partial \alpha}{\partial a} &= \frac{\partial}{\partial a}(\alpha)\\
+&= \frac{\partial}{\partial a}(\frac{1}{a})\\
+&= \frac{-1}{a^2}\\
+\\
+\frac{\partial \alpha}{\partial b} &= \frac{\partial}{\partial b}(\alpha)\\
+&= \frac{\partial}{\partial b}(\frac{1}{a})\\
+&= 0\\
+\\
+\frac{\partial \beta}{\partial a} &= \frac{\partial}{\partial a}(\beta)\\
+&= \frac{\partial}{\partial a}(-\frac{b}{a})\\
+&= \frac{b}{a^2}\\
+\\
+\frac{\partial \beta}{\partial b} &= \frac{\partial}{\partial b}(\beta)\\
+&= \frac{\partial}{\partial b}(-\frac{b}{a})\\
+&= \frac{-1}{a}
+\end{align*}
+\begin{align*}
+\begin{vmatrix}
+\frac{\partial \alpha}{\partial a} & \frac{\partial \alpha}{\partial b}  \\ 
+\frac{\partial \beta}{\partial a} & \frac{\partial \beta}{\partial b}  \\ 
+\end{vmatrix} 
+=
+\begin{vmatrix}
+\frac{-1}{a^2} & 0  \\ 
+\frac{b}{a^2} & \frac{-1}{a}  \\ 
+\end{vmatrix}
+= \frac{1}{a^3}
+\end{align*}
+\textrm{Now that we have the Jacobian, we actually consider the problem. It asks us to show that the given prior $P(a,b) \propto \frac{1}{(1+a^2)^{\frac{3}{2}}}$ is uninformative. As in the case of Jeffrey's prior, this means we have to show that the given prior satisfies the following}
+$$P(a,b) = P(\alpha,\beta)\begin{vmatrix}
+	\frac{\partial \alpha}{\partial a} & \frac{\partial \alpha}{\partial b} \\
+	\frac{\partial \beta}{\partial a} & \frac{\partial \beta}{\partial b} \\
+\end{vmatrix}$$
+This is because as the problem tells us, we could have defined our line in two different ways ($y = ax + b$ and $x = \alpha y + \beta$) but this should not affect the prior as it is merely a stylistic choice. Satisfying the above equality means that the prior "respects this arbitrariness," as Justin said in class. 
+Now we show that the given prior indeed satisfies the inequality. But first, 
+$$P(a,b) \propto \frac{1}{(1+a^2)^{\frac{3}{2}}}$$ the given prior above is only a function of $a$, so I will make the simplification that $P(a,b)=P(a)$ (and similarly $P(\alpha, \beta)=P(\alpha)$).
+\begin{align*}
+P(a,b) = P(\alpha,\beta)\begin{vmatrix}
+\frac{\partial \alpha}{\partial a} & \frac{\partial \alpha}{\partial b} \\
+\frac{\partial \beta}{\partial a} & \frac{\partial \beta}{\partial b} \\
+\end{vmatrix}\\
+P(a) = P(\alpha)\begin{vmatrix}
+\frac{\partial \alpha}{\partial a} & \frac{\partial \alpha}{\partial b} \\
+\frac{\partial \beta}{\partial a} & \frac{\partial \beta}{\partial b} \\
+\end{vmatrix}\\
+&= P(\alpha) \frac{1}{a^3}\\
+&= P(1/a) \frac{1}{a^3}\\
+&= \frac{C}{(1+(1/a)^2)^{\frac{3}{2}} a^3}\\
+&= \frac{C}{\frac{a^2+1}{a^2}^{\frac{3}{2}} a^3}\\
+&= \frac{Ca^3}{(a^2+1)^{\frac{3}{2}} a^3}\\
+&= \frac{C}{(a^2+1)^{\frac{3}{2}}}\\
+&\propto \frac{1}{(a^2+1)^{\frac{3}{2}}}
+\end{align*}
+\textrm{Thus the given prior indeed is uninformative.}
+\end{document}
